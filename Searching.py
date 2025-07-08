@@ -1,0 +1,47 @@
+class node:
+    def __init__(self,data):
+        self.right=None
+        self.data=data
+        self.left=None
+class bst:
+    def __init__(self):
+        self.root=None
+    
+    def insert(self,root,data):
+        if root==None:
+            return node(data)
+        if root.data>data:
+            root.left=self.insert(root.left,data)
+        if root.data<data:
+            root.right=self.insert(root.right,data)
+        return root
+        
+    def insert_val(self,data):
+        self.root=self.insert(self.root,data)
+        
+    def search(self,root,data):
+        if root==None:
+            return None
+        if root.data==data:
+            return root
+        elif root.data>data:
+            return self.search(root.left,data)
+        return self.search(root.right,data)
+    
+    def inorder(self,root):
+        if root:
+            self.inorder(root.left)
+            print(root.data,end="->")
+            self.inorder(root.right)
+    
+    def display(self):
+        self.inorder(self.root)
+        print('None')
+        
+l=list(map(int,input().split()))
+b=bst()
+for i in l:
+    b.insert_val(i)
+b.display()
+re=b.search(b.root,2)
+print('Found' if re else 'Not')
